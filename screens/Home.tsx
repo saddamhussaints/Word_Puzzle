@@ -1,8 +1,9 @@
-import { View, Text, Button, Pressable } from 'react-native'
+import { View, Text, Button, Pressable, StyleSheet } from 'react-native'
 import React, { useState } from 'react'
 import { useNavigation } from "@react-navigation/native";
 import { HomeScreenNavigationProp } from '../types';
 import { AppScreen } from '../enums/screens';
+import globalStyles from '../styles';
 
 
 
@@ -12,23 +13,28 @@ export default function Home() {
     const [selected, setSelected] = useState<string>();
 
     return (
-        <View style={{ backgroundColor: "black", height: "100%", alignItems: "center", justifyContent: "space-evenly", padding: 16 }}>
-            <Text style={{ color: "white", fontSize: 20, fontWeight: "700" }}>Words Puzzle</Text>
-            {categories.map((category, i) => <Pressable key={i} style={{ backgroundColor: selected === category ? "#F37335" : "#F2C94C", paddingVertical: 10, paddingHorizontal: 50 }}
+        <View style={globalStyles.container}>
+            <Text style={globalStyles.title}>Words Puzzle</Text>
+            {categories.map((category, i) => <Pressable key={i} style={[globalStyles.button, { backgroundColor: selected === category ? "#F37335" : "#F2C94C", }]}
                 onPress={() => setSelected(category)}
             >
                 <View>
-                    <Text style={{ color: "white", fontWeight: '700' }}>{category}</Text>
+                    <Text style={globalStyles.buttonText}>{category}</Text>
                 </View>
             </Pressable>)}
-            <Pressable style={{ backgroundColor: "#00467F", paddingVertical: 10, paddingHorizontal: 50, opacity: !Boolean(selected) ? 0.7 : 1 }}
-                onPress={() => { navigation.navigate(AppScreen.GAME, { title: selected!}) }}
+            <Pressable style={[globalStyles.button,{ backgroundColor: "#00467F",  opacity: !Boolean(selected) ? 0.7 : 1 }]}
+                onPress={() => { navigation.navigate(AppScreen.GAME, { title: selected! }) }}
                 disabled={!Boolean(selected)}
             >
                 <View>
-                    <Text style={{ color: "white", fontWeight: '700' }}>Next</Text>
+                    <Text style={globalStyles.buttonText}>Next</Text>
                 </View>
             </Pressable>
         </View>
     )
 }
+
+const styles = StyleSheet.create({
+
+
+})

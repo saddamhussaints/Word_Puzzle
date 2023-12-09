@@ -4,6 +4,7 @@ import { RouteProp, useNavigation, useRoute } from '@react-navigation/native';
 import { RootStackParamList, ScoreBoardScreenNavigationProp } from '../types';
 import users from '../mock_data/score_board.json'
 import { AppScreen } from '../enums/screens';
+import globalStyles from '../styles';
 
 
 const DATA = [
@@ -40,20 +41,20 @@ export default function ScoreBoard() {
         setUsersScore([...usersScore])
     }, [])
     return (
-        <View style={{ backgroundColor: "black", flex: 1, alignItems: "center", justifyContent: "center", padding: 16 }}>
-            <Text style={{ color: "white", fontSize: 20, fontWeight: "700", marginBottom: 20 }}>Score Board</Text>
+        <View style={globalStyles.container}>
+            <Text style={[globalStyles.title, { marginBottom: 20 }]}>Score Board</Text>
             <FlatList
                 data={usersScore}
                 renderItem={({ item }) => <Item name={item.name} score={item.score} />}
                 showsVerticalScrollIndicator={false}
                 style={{ marginBottom: 60 }}
             />
-            <Pressable style={{ backgroundColor: "#00467F", paddingVertical: 10, paddingHorizontal: 50, position: "absolute", bottom: 0, marginBottom: 30 }} onPress={() => navigation.reset({
+            <Pressable style={[globalStyles.button, { backgroundColor: "#00467F", position: "absolute", bottom: 0, marginBottom: 30 }]} onPress={() => navigation.reset({
                 index: 0,
                 routes: [{ name: AppScreen.HOME }],
             })}>
                 <View>
-                    <Text style={{ color: "white", fontWeight: '700' }}>Go to Home</Text>
+                    <Text style={globalStyles.buttonText}>Go to Home</Text>
                 </View>
             </Pressable>
         </View>

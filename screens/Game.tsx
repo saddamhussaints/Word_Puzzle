@@ -1,10 +1,11 @@
-import { View, Text, TextInput, Pressable } from 'react-native'
+import { View, Text, TextInput, Pressable, StyleSheet } from 'react-native'
 import React, { useEffect, useRef, useState } from 'react'
 import { RouteProp, useNavigation, useRoute } from '@react-navigation/native';
 import { GameScreenNavigationProp, RootStackParamList } from '../types';
 import { getRandomNumber } from '../utils';
 import * as data from '../mock_data/questions.json'
 import { AppScreen } from '../enums/screens';
+import globalStyles from '../styles';
 
 
 export default function Game() {
@@ -17,7 +18,7 @@ export default function Game() {
     const [isSkippable, setIsSkippable] = useState<boolean>(true);
     const [questionIndex, setQuestionIndex] = useState(0);
     // @ts-ignore
-    const questions:any[] = data[params.title.toLowerCase()]
+    const questions: any[] = data[params.title.toLowerCase()]
 
     useEffect(() => {
         answerRef.current = 0;
@@ -50,18 +51,18 @@ export default function Game() {
     }
 
     return (
-        <View style={{ backgroundColor: "black", height: "100%", alignItems: "center", justifyContent: "space-between", padding: 16 }}>
-            <Text style={{ color: "white", fontSize: 20, fontWeight: "700" }}>{params.title}</Text>
+        <View style={globalStyles.container}>
+            <Text style={globalStyles.title}>{params.title}</Text>
             <View style={{ alignItems: "center" }}>
-                <View style={{ flexDirection: "row", flexWrap: "wrap", gap: 20, alignItems: "center", justifyContent: "center" }}>
-                    {answer.map((data, i) => <View key={i} style={{ backgroundColor: "white", width: 50, height: 50, justifyContent: "center" }}>
-                        <Text style={{ fontSize: 20, textAlign: "center", fontWeight: '700' }}>{data}</Text>
+                <View style={styles.LettersContainer}>
+                    {answer.map((data, i) => <View key={i} style={styles.InputWrapperStyles}>
+                        <Text style={styles.InputLetterStyles}>{data}</Text>
                     </View>)}
                 </View>
                 <Text style={{ color: "white", fontSize: 16, paddingVertical: 30 }}>{questions[questionIndex].question}</Text>
-                <View style={{ flexDirection: "row", flexWrap: "wrap", gap: 20, alignItems: "center", justifyContent: "center" }}>
-                    {randomWord.map((data, i) => <Pressable onPress={() => setAnswerLetter(i)} key={i} style={{ backgroundColor: "white", width: 50, height: 50, justifyContent: "center" }}>
-                        <Text style={{ fontSize: 20, textAlign: "center", fontWeight: '700' }}>{data}</Text>
+                <View style={styles.LettersContainer}>
+                    {randomWord.map((data, i) => <Pressable onPress={() => setAnswerLetter(i)} key={i} style={styles.InputWrapperStyles}>
+                        <Text style={styles.InputLetterStyles}>{data}</Text>
                     </Pressable>)}
                 </View>
             </View>
@@ -76,12 +77,12 @@ export default function Game() {
                 }}
             >
                 <View>
-                    <Text style={{ color: "white", fontWeight: '700' }}>Skip</Text>
+                    <Text style={globalStyles.buttonText}>Skip</Text>
                 </View>
             </Pressable> :
                 <Pressable style={{ backgroundColor: "#00467F", paddingVertical: 10, paddingHorizontal: 50, marginBottom: 20 }}
                     onPress={() => {
-                        if(questionIndex < questions.length){
+                        if (questionIndex < questions.length) {
                             answer.forEach((inputLetter, index) => {
                                 if (inputLetter) {
                                     if (questions[questionIndex].unScrambledWord[index] === inputLetter) {
@@ -99,10 +100,30 @@ export default function Game() {
                     }
                 >
                     <View>
-                        <Text style={{ color: "white", fontWeight: '700' }}>Next</Text>
+                        <Text style={globalStyles.buttonText}>Next</Text>
                     </View>
                 </Pressable>}
 
         </View>
     )
 }
+const styles = StyleSheet.create({
+    LettersContainer: {
+        flexDirection: "row",
+        flexWrap: "wrap",
+        gap: 20,
+        alignItems: "center",
+        justifyContent: "center"
+    },
+    InputWrapperStyles: {
+        backgroundColor: "white",
+        width: 50,
+        height: 50,
+        justifyContent: "center"
+    },
+    InputLetterStyles: {
+        fontSize: 20,
+        textAlign: "center",
+        fontWeight: '700'
+    }
+})
