@@ -4,6 +4,7 @@ import { useNavigation } from "@react-navigation/native";
 import { HomeScreenNavigationProp } from '../types';
 import { AppScreen } from '../enums/screens';
 import globalStyles from '../styles';
+import PrimaryButton from '../components/PrimaryButton';
 
 
 
@@ -22,14 +23,7 @@ export default function Home() {
                     <Text style={globalStyles.buttonText}>{category}</Text>
                 </View>
             </Pressable>)}
-            <Pressable style={[globalStyles.button,{ backgroundColor: "#00467F",  opacity: !Boolean(selected) ? 0.7 : 1 }]}
-                onPress={() => { navigation.navigate(AppScreen.GAME, { title: selected! }) }}
-                disabled={!Boolean(selected)}
-            >
-                <View>
-                    <Text style={globalStyles.buttonText}>Next</Text>
-                </View>
-            </Pressable>
+            <PrimaryButton title='Next' isSelected={selected} handler={()=>navigation.navigate(AppScreen.GAME, { title: selected! }) } />
         </View>
     )
 }

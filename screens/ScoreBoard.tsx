@@ -5,6 +5,7 @@ import { RootStackParamList, ScoreBoardScreenNavigationProp } from '../types';
 import users from '../mock_data/score_board.json'
 import { AppScreen } from '../enums/screens';
 import globalStyles from '../styles';
+import PrimaryButton from '../components/PrimaryButton';
 
 
 const DATA = [
@@ -49,14 +50,10 @@ export default function ScoreBoard() {
                 showsVerticalScrollIndicator={false}
                 style={{ marginBottom: 60 }}
             />
-            <Pressable style={[globalStyles.button, { backgroundColor: "#00467F", position: "absolute", bottom: 0, marginBottom: 30 }]} onPress={() => navigation.reset({
+            <PrimaryButton title='Go to Home' isSelected={true} handler={() => navigation.reset({
                 index: 0,
                 routes: [{ name: AppScreen.HOME }],
-            })}>
-                <View>
-                    <Text style={globalStyles.buttonText}>Go to Home</Text>
-                </View>
-            </Pressable>
+            })} />
         </View>
     )
 }

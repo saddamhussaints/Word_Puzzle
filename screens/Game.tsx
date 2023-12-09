@@ -6,6 +6,7 @@ import { getRandomNumber } from '../utils';
 import * as data from '../mock_data/questions.json'
 import { AppScreen } from '../enums/screens';
 import globalStyles from '../styles';
+import PrimaryButton from '../components/PrimaryButton';
 
 
 export default function Game() {
@@ -67,42 +68,32 @@ export default function Game() {
                 </View>
             </View>
 
-            {isSkippable ? <Pressable style={{ backgroundColor: "#00467F", paddingVertical: 10, paddingHorizontal: 50, marginBottom: 20 }}
-                onPress={() => {
+            {isSkippable ? <PrimaryButton title='Skip' isSelected={true} handler={() => {
+                if (questionIndex < questions.length - 1) {
+                    setQuestionIndex(prevIndex => prevIndex + 1)
+                } else {
+                    navigation.navigate(AppScreen.RESULT, { result: userScoreRef.current });
+                }
+            }} />
+                : <PrimaryButton title='Next' isSelected={true} handler={() => {
+                    if (questionIndex < questions.length) {
+                        answer.forEach((inputLetter, index) => {
+                            if (inputLetter) {
+                                if (questions[questionIndex].unScrambledWord[index] === inputLetter) {
+                                    userScoreRef.current++;
+                                }
+                            }
+                        });
+                    }
                     if (questionIndex < questions.length - 1) {
                         setQuestionIndex(prevIndex => prevIndex + 1)
                     } else {
                         navigation.navigate(AppScreen.RESULT, { result: userScoreRef.current });
                     }
-                }}
-            >
-                <View>
-                    <Text style={globalStyles.buttonText}>Skip</Text>
-                </View>
-            </Pressable> :
-                <Pressable style={{ backgroundColor: "#00467F", paddingVertical: 10, paddingHorizontal: 50, marginBottom: 20 }}
-                    onPress={() => {
-                        if (questionIndex < questions.length) {
-                            answer.forEach((inputLetter, index) => {
-                                if (inputLetter) {
-                                    if (questions[questionIndex].unScrambledWord[index] === inputLetter) {
-                                        userScoreRef.current++;
-                                    }
-                                }
-                            });
-                        }
-                        if (questionIndex < questions.length - 1) {
-                            setQuestionIndex(prevIndex => prevIndex + 1)
-                        } else {
-                            navigation.navigate(AppScreen.RESULT, { result: userScoreRef.current });
-                        }
-                    }
-                    }
-                >
-                    <View>
-                        <Text style={globalStyles.buttonText}>Next</Text>
-                    </View>
-                </Pressable>}
+
+
+                }} />
+            }
 
         </View>
     )
