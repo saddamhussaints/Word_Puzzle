@@ -1,0 +1,44 @@
+{
+    "animals": [
+        {
+            "question": "Largest animal on earth ?",
+            "unScrambledWord": "ELEPHANT"
+        },
+        {
+            "question": "King of the forest ?",
+            "unScrambledWord": "LION"
+        },
+        {
+            "question": "Most adopted animal ?",
+            "unScrambledWord": "DOG"
+        }
+    ],
+    "fruits": [
+        {
+            "question": "Sweetest fruit?",
+            "unScrambledWord": "MANGO"
+        },
+        {
+            "question": "Red fruit?",
+            "unScrambledWord": "APPLE"
+        },
+        {
+            "question": "Yellow fruit?",
+            "unScrambledWord": "BANANA"
+        }
+    ],
+    "countries": [
+        {
+            "question": "Largest country by area?",
+            "unScrambledWord": "RUSSIA"
+        },
+        {
+            "question": "Country known for kangaroos?",
+            "unScrambledWord": "AUSTRALIA"
+        },
+        {
+            "question": "Home of the Eiffel Tower?",
+            "unScrambledWord": "FRANCE"
+        }
+    ]
+}
